@@ -11,10 +11,32 @@
 
 [GitHub OAuth 文档](https://developer.github.com/apps/building-oauth-apps/)
 
+[菜鸟教程 MySQL](https://www.runoob.com/mysql/mysql-install.html)
+
+[Spring boot mybatis](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-embedded-database-support)
+
 ## 工具
 [Git](https://git-scm.com/)
 
 [VP](https://www.visual-paradigm.com/cn/)
+
+## 脚本
+```sql
+create table USER
+(
+	ID INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_6C0B6829_AD9A_493F_9076_0094D552B944" auto_increment,
+	ACCOUNT_ID VARCHAR(100),
+	NAME VARCHAR(50),
+	TOKEN CHAR(50),
+	GMT_CREATE BIGINT,
+	GMT_MODIFIED BIGINT,
+	constraint USER_PK
+		primary key (ID)
+);
+
+
+```
+
 
 #### 1. 如何启动 spring boot 项目
 - 在ide里直接执行main方法
@@ -35,4 +57,9 @@
 - 根据配置文件去获得这个值
 - Spring启动的时候会把配置文件里的值放在一个map里
 
-#### 7.
+#### 7. maven的pom
+- <scope>test</scope>
+- 多了一句这个竟然就找不到h2的driver class了
+
+#### 8. h2是大坑
+- 服务端和ide不能同时连接h2数据库，记得关掉

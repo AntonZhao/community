@@ -31,4 +31,13 @@ public class GithubUser {
     public void setId(Long id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "GithubUser{" +
+                "name='" + name + '\'' +
+                ", bio='" + bio + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }
