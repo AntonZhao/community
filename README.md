@@ -20,6 +20,8 @@
 
 [VP](https://www.visual-paradigm.com/cn/)
 
+[FlyWay](https://flywaydb.org/getstarted/firststeps/maven)
+
 ## 脚本
 ```sql
 create table USER
