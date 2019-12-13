@@ -48,7 +48,7 @@ public class AuthorizeController {
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
         GithubUser githubUser = githubProvider.getUser(accessToken);
 
-        if (githubUser != null) {
+        if (githubUser != null && githubUser.getId() != null) {
             User user = new User();
             String token = UUID.randomUUID().toString();
 
@@ -65,7 +65,7 @@ public class AuthorizeController {
 //            request.getSession().setAttribute("user", githubUser);
 
             return "redirect:/";
-        }else{
+        } else {
             // 登录失败，重新登录
             return "redirect:/";
         }
