@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.community.dto.AccessTokenDTO;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
+import com.example.community.dto.GithubUser;
 
 import java.io.IOException;
 

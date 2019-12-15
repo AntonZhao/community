@@ -4,7 +4,7 @@ import com.example.community.dto.AccessTokenDTO;
 import com.example.community.mapper.UserMapper;
 import com.example.community.model.User;
 import com.example.community.provider.GithubProvider;
-import com.example.community.provider.GithubUser;
+import com.example.community.dto.GithubUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -57,6 +57,7 @@ public class AuthorizeController {
             user.setAccountID(String.valueOf(githubUser.getId()));
             user.setGmtCreate(System.currentTimeMillis());
             user.setGmtModified(user.getGmtCreate());
+            user.setAvatarUrl(githubUser.getAvatarUrl());
             userMapper.insert(user);//存入数据库
 
             response.addCookie(new Cookie("token", token));
