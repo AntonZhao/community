@@ -85,3 +85,5 @@ select * from QUESTION limit 0,5;
 
 #### 14.运行的时候直接自动build
 - shift-command-option-? 打开registry，compiler-automake-allow-when-app-running 打勾
+
+#### 15. th的作用是替换
