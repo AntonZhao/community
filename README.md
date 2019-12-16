@@ -10,7 +10,9 @@
 [Spring boot mybatis](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#boot-features-embedded-database-support)  
 [lombok---需要maven引用和idea的插件下载](https://projectlombok.org/)  
 [spring-boot 热部署文档](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#using-boot-devtools-restart)  
-等待
+[Spring web MVC 文档 （拦截器）](https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor)  
+[thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)  
+等待  
 
 ## 工具
 [Git](https://git-scm.com/)  
@@ -87,3 +89,6 @@ select * from QUESTION limit 0,5;
 - shift-command-option-? 打开registry，compiler-automake-allow-when-app-running 打勾
 
 #### 15. th的作用是替换
+
+#### 16. @EnableWebMvc
+- 这个注解代表全面接管SpringMVC，之前的默认配置都没了
