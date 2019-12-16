@@ -92,3 +92,7 @@ select * from QUESTION limit 0,5;
 
 #### 16. @EnableWebMvc
 - 这个注解代表全面接管SpringMVC，之前的默认配置都没了
+
+#### 17. th:href里面不能加空格哦
+- th:href="@{'question/'+${question.id}}"
+- 空格也是算数的
