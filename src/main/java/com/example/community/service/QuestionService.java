@@ -1,5 +1,7 @@
 package com.example.community.service;
 
+import com.example.community.Exception.CustomizeErrorCode;
+import com.example.community.Exception.CustomizeException;
 import com.example.community.dto.PaginationDTO;
 import com.example.community.dto.QuestionDTO;
 import com.example.community.mapper.QuestionMapper;
@@ -99,6 +101,9 @@ public class QuestionService {
 
     public QuestionDTO getById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
+        if (question == null){
+            throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+        }
         QuestionDTO questionDTO = new QuestionDTO();
         BeanUtils.copyProperties(question, questionDTO);
 
@@ -127,7 +132,10 @@ public class QuestionService {
             questionExample.createCriteria()
                     .andIdEqualTo(question.getId());
 
-            questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            int updated = questionMapper.updateByExampleSelective(updateQuestion, questionExample);
+            if (updated != 1) {
+                throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
+            }
         }
     }
 }
