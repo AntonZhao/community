@@ -12,6 +12,7 @@
 [spring-boot 热部署文档](https://docs.spring.io/spring-boot/docs/2.0.0.RC1/reference/htmlsingle/#using-boot-devtools-restart)  
 [Spring web MVC 文档 （拦截器）](https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor)  
 [thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)  
+[mybatis](http://mybatis.org/generator/quickstart.html)
 等待  
 
 ## 工具
@@ -24,15 +25,35 @@
 ```sql
 create table USER
 (
-	ID INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_6C0B6829_AD9A_493F_9076_0094D552B944" auto_increment,
+	ID INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_D9039AC6_F2AE_40AE_833A_60ABBF71CB4A" auto_increment,
 	ACCOUNT_ID VARCHAR(100),
 	NAME VARCHAR(50),
 	TOKEN CHAR(50),
 	GMT_CREATE BIGINT,
 	GMT_MODIFIED BIGINT,
+	BIO VARCHAR(256),
+	AVATAR_URL VARCHAR(100),
 	constraint USER_PK
 		primary key (ID)
 );
+
+
+create table QUESTION
+(
+	ID INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_0F34DFC7_AE40_4073_9EC6_B7BB0A362EC5" auto_increment
+		primary key,
+	TITLE VARCHAR(50),
+	DESCRIPTION CLOB,
+	GMT_CREATE BIGINT,
+	GMT_MODIFIED BIGINT,
+	CREATOR INTEGER,
+	COMMENT_COUNT INTEGER default 0,
+	VIEW_COUNT INTEGER default 0,
+	LIKE_COUNT INTEGER default 0,
+	TAG VARCHAR(256)
+);
+
+
 
 ```
 
@@ -41,6 +62,11 @@ select count(1) from QUESTION;
 
 select * from QUESTION limit 0,5;
 ```
+
+```bash
+mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
+```
+
 
 
 #### 1. 如何启动 spring boot 项目
