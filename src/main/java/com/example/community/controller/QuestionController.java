@@ -1,9 +1,7 @@
 package com.example.community.controller;
 
 import com.example.community.dto.QuestionDTO;
-import com.example.community.mapper.QuestionMapper;
 import com.example.community.service.QuestionService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +18,7 @@ public class QuestionController {
     public String question(@PathVariable(name = "id") Integer id,
                            Model model) {
         QuestionDTO questionDTO = questionService.getById(id);
+        questionService.incView(id);
         model.addAttribute("questionDTO", questionDTO);
         return "question";
     }
