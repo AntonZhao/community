@@ -53,6 +53,34 @@ create table QUESTION
 	TAG VARCHAR(256)
 );
 
+create table COMMENT
+(
+	ID BIGINT auto_increment,
+	PARENT_ID BIGINT not null,
+	TYPE INTEGER not null,
+	COMMENTATOR INTEGER not null,
+	GMT_CREATE BIGINT not null,
+	GMT_MODIFIED BIGINT not null,
+	LIKE_COUNT BIGINT default 0,
+	CONTENT CLOB not null,
+	constraint COMMENT_PK
+		primary key (ID)
+);
+
+comment on column COMMENT.PARENT_ID is '父类ID';
+
+comment on column COMMENT.TYPE is '父类类型';
+
+comment on column COMMENT.COMMENTATOR is '评论人ID';
+
+comment on column COMMENT.GMT_CREATE is '创建时间';
+
+comment on column COMMENT.GMT_MODIFIED is '更新时间';
+
+comment on column COMMENT.LIKE_COUNT is '点赞数';
+
+
+
 
 
 ```
@@ -122,3 +150,14 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 #### 17. th:href里面不能加空格哦
 - th:href="@{'question/'+${question.id}}"
 - 空格也是算数的
+
+#### 18. 事务的概念
+-  @Transactional
+- 如果有异常或者错误，回滚前面的更新语句
+
+#### 19. 前端页面debug---debugger
+
+#### 20.idea抽取快捷键
+- command+option+v 抽取变量
+- command+option+p 抽取参数
+- command+option+f 抽取方法

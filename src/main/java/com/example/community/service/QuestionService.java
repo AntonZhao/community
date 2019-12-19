@@ -11,7 +11,6 @@ import com.example.community.model.Question;
 import com.example.community.model.QuestionExample;
 import com.example.community.model.User;
 import org.apache.ibatis.session.RowBounds;
-import org.omg.CORBA.OMGVMCID;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +64,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public PaginationDTO list(Integer UserId, Integer page, Integer size) {
+    public PaginationDTO list(Long UserId, Integer page, Integer size) {
         PaginationDTO paginationDTO = new PaginationDTO();
 
 //        Integer totalCount = questionMapper.countByUserId(UserId);
@@ -102,7 +101,7 @@ public class QuestionService {
         return paginationDTO;
     }
 
-    public QuestionDTO getById(Integer id) {
+    public QuestionDTO getById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if (question == null){
             throw new CustomizeException(CustomizeErrorCode.QUESTION_NOT_FOUND);
@@ -121,6 +120,9 @@ public class QuestionService {
             // 创建新的问题
             question.setGmtCreate(System.currentTimeMillis());
             question.setGmtModified(question.getGmtCreate());
+            question.setViewCount(0);
+            question.setCommentCount(0);
+            question.setLikeCount(0);
             questionMapper.insert(question);
         }else {
             // 更新旧的问题
@@ -142,7 +144,7 @@ public class QuestionService {
         }
     }
 
-    public void incView(Integer id) {
+    public void incView(Long id) {
 //        Question question = questionMapper.selectByPrimaryKey(id);
 //        Question updatedQuestion = new Question();
 //        updatedQuestion.setViewCount(question.getViewCount() + 1);
