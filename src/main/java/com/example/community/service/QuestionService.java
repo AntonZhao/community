@@ -10,6 +10,7 @@ import com.example.community.mapper.UserMapper;
 import com.example.community.model.Question;
 import com.example.community.model.QuestionExample;
 import com.example.community.model.User;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 同时使用QuestionMapper 和 UserMapper
@@ -48,7 +50,9 @@ public class QuestionService {
         //size*(page - 1)
         Integer offset = size * (page - 1);
 //        List<Question> questions = questionMapper.list(offset, size);
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(new QuestionExample(), new RowBounds());
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.setOrderByClause("gmt_create desc");
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(questionExample, new RowBounds(offset, size));
 
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
@@ -86,7 +90,7 @@ public class QuestionService {
         QuestionExample example = new QuestionExample();
         example.createCriteria()
                 .andCreatorEqualTo(UserId);
-        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example, new RowBounds());
+        List<Question> questions = questionMapper.selectByExampleWithRowbounds(example, new RowBounds(offset, size));
         List<QuestionDTO> questionDTOList = new ArrayList<>();
 
         for (Question question : questions) {
@@ -145,17 +149,28 @@ public class QuestionService {
     }
 
     public void incView(Long id) {
-//        Question question = questionMapper.selectByPrimaryKey(id);
-//        Question updatedQuestion = new Question();
-//        updatedQuestion.setViewCount(question.getViewCount() + 1);
-//        QuestionExample example = new QuestionExample();
-//        example.createCriteria()
-//                .andIdEqualTo(id);
-//        questionMapper.updateByExampleSelective(updatedQuestion, example);
-
         Question question = new Question();
         question.setId(id);
         question.setViewCount(1);
         questionExtMapper.incView(question);
+    }
+
+    public List<QuestionDTO> selectRelated(QuestionDTO questionDTO) {
+        if (StringUtils.isBlank(questionDTO.getTag())){
+            return new ArrayList<>();
+        }
+
+        Question question = new Question();
+        question.setId(questionDTO.getId());
+        question.setTag(questionDTO.getTag().replace(',','|'));
+
+        List<Question> questions = questionExtMapper.selectRelated(question);
+        List<QuestionDTO> relatedQuestionDTOS = questions.stream().map(q -> {
+            QuestionDTO questionDTO1 = new QuestionDTO();
+            BeanUtils.copyProperties(q, questionDTO1);
+            return questionDTO1;
+        }).collect(Collectors.toList());
+
+        return relatedQuestionDTOS;
     }
 }
