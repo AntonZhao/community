@@ -3,6 +3,8 @@ package com.example.community.interceptor;
 import com.example.community.mapper.UserMapper;
 import com.example.community.model.User;
 import com.example.community.model.UserExample;
+import com.example.community.service.NotificationService;
+import com.example.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -18,6 +20,10 @@ public class SessionInterceptor implements HandlerInterceptor {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationService notificationService;
+    @Autowired
+    private QuestionService questionService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -35,6 +41,12 @@ public class SessionInterceptor implements HandlerInterceptor {
 
                     if (users.size() != 0) {
                         request.getSession().setAttribute("user", users.get(0));
+                        // 获取未读的消息数
+                        Long unreadCount = notificationService.unreadCount(users.get(0).getId());
+                        request.getSession().setAttribute("unreadCount", unreadCount);
+                        // 获取用户创建问题数
+                        Long questionCountByCurUser = questionService.createCount(users.get(0).getId());
+                        request.getSession().setAttribute("questionCountByCurUser", questionCountByCurUser);
                     }
                     break;
                 }

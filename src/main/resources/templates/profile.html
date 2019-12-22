@@ -92,12 +92,12 @@
                 <a href="/profile/questions"
                    th:class="${section == 'questions'} ? 'list-group-item active' : 'list-group-item'">
                     我的问题
-                    <span class="badge" th:text="${paginationDTO.getTotalPage() * 5}"></span>
+                    <span class="badge" th:text="${session.questionCountByCurUser}"></span>
                 </a>
                 <a href="/profile/replies"
                    th:class="${section == 'replies'} ? 'list-group-item active' : 'list-group-item'">
                     最新回复
-                    <span class="badge" th:text="${unreadCount}"></span>
+                    <span class="badge" th:text="${session.unreadCount}"></span>
                 </a>
                 <a href="#" class="list-group-item">Porta ac consectetur ac</a>
                 <a href="#" class="list-group-item">Vestibulum at eros</a>

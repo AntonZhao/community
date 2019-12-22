@@ -173,4 +173,11 @@ public class QuestionService {
 
         return relatedQuestionDTOS;
     }
+
+    public Long createCount(Long id) {
+        QuestionExample questionExample = new QuestionExample();
+        questionExample.createCriteria()
+                .andCreatorEqualTo(id);
+        return questionMapper.countByExample(questionExample);
+    }
 }
