@@ -80,6 +80,21 @@ comment on column COMMENT.GMT_MODIFIED is '更新时间';
 comment on column COMMENT.LIKE_COUNT is '点赞数';
 
 
+create table NOTIFICATION
+(
+	ID BIGINT  auto_increment,
+	NOTIFIER BIGINT not null,
+	RECEICER BIGINT not null,
+	OUTERID BIGINT not null,
+	TYPE INTEGER not null,
+	GMT_CREATE BIGINT not null,
+	STATUS INTEGER default 0 not null,
+	constraint NOTIFICATION_PK
+		primary key (ID)
+);
+
+
+
 
 
 

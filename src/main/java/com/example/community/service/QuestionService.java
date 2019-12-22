@@ -37,7 +37,7 @@ public class QuestionService {
 
 
     public PaginationDTO list(Integer page, Integer size) {
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
 
         Integer totalCount = (int)questionMapper.countByExample(new QuestionExample());
         Integer totalPage = (totalCount % size == 0) ? totalCount / size : totalCount / size + 1;
@@ -64,12 +64,12 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
 
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 
     public PaginationDTO list(Long UserId, Integer page, Integer size) {
-        PaginationDTO paginationDTO = new PaginationDTO();
+        PaginationDTO<QuestionDTO> paginationDTO = new PaginationDTO<>();
 
 //        Integer totalCount = questionMapper.countByUserId(UserId);
         QuestionExample questionExample = new QuestionExample();
@@ -101,7 +101,7 @@ public class QuestionService {
             questionDTOList.add(questionDTO);
         }
 
-        paginationDTO.setQuestions(questionDTOList);
+        paginationDTO.setData(questionDTOList);
         return paginationDTO;
     }
 
