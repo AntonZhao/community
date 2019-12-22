@@ -1,10 +1,12 @@
 package com.example.community.controller;
 
+import com.example.community.cache.TagCache;
 import com.example.community.dto.QuestionDTO;
 import com.example.community.mapper.QuestionMapper;
 import com.example.community.model.Question;
 import com.example.community.model.User;
 import com.example.community.service.QuestionService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,12 +31,14 @@ public class PublishController {
         model.addAttribute("description", question.getDescription());
         model.addAttribute("tag", question.getTag());
         model.addAttribute("id", question.getId());
+        model.addAttribute("tags", TagCache.get());
 
         return "publish";
     }
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model) {
+        model.addAttribute("tags", TagCache.get());
         return "publish";
     }
 
@@ -49,20 +53,25 @@ public class PublishController {
         model.addAttribute("description", description);
         model.addAttribute("tag", tag);
 
-        if (title.isEmpty()){
+        if (title.isEmpty()) {
             model.addAttribute("error", "标题不能为空");
             return "publish";
         }
-        if (description.isEmpty()){
+        if (description.isEmpty()) {
             model.addAttribute("error", "描述不能为空");
             return "publish";
         }
-        if (tag.isEmpty()){
+        if (tag.isEmpty()) {
             model.addAttribute("error", "标签不能为空");
             return "publish";
         }
+        String invalidTag = TagCache.filterInvalid(tag);
+        if (StringUtils.isNotBlank(invalidTag)) {
+            model.addAttribute("error", "输入非法标签:" + invalidTag);
+            return "publish";
+        }
 
-        User user = (User)request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             model.addAttribute("error", "用户未登录");
             return "publish";
