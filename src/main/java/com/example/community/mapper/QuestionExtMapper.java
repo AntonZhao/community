@@ -1,5 +1,6 @@
 package com.example.community.mapper;
 
+import com.example.community.dto.QuestionQueryDTO;
 import com.example.community.model.Question;
 import com.example.community.model.QuestionExample;
 import org.apache.ibatis.annotations.Param;
@@ -13,4 +14,8 @@ public interface QuestionExtMapper {
     int incComment(Question record);
 
     List<Question> selectRelated(Question record);
+
+    Integer countBySearch(QuestionQueryDTO questionQueryDTO);
+
+    List<Question> selectBySearch(QuestionQueryDTO questionQueryDTO);
 }
