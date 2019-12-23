@@ -50,7 +50,7 @@
                     <h4 class="media-heading">
                         <a th:href="@{'question/'+${question.id}}" th:text="${question.title}"></a>
                     </h4>
-                    <span th:text="${question.description}"></span> <br>
+                    <span th:text="${question.description}" class="index_question_description"></span> <br>
                     <span class="text-desc">
                         <span th:text="${question.commentCount}"></span>个回复  😅
                         <span th:text="${question.viewCount}"></span>个光临  🙏 创建于
@@ -93,6 +93,6 @@
         </div>
     </div>
 </div>
-
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

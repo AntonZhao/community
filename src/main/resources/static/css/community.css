@@ -170,3 +170,10 @@ body {
 .red {
     color: red !important;
 }
+
+.index_question_description {
+    max-width: 10em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /*超出部分用...代替*/
+}
