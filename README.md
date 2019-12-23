@@ -13,7 +13,9 @@
 [Spring web MVC 文档 （拦截器）](https://docs.spring.io/spring/docs/5.0.3.RELEASE/spring-framework-reference/web.html#mvc-handlermapping-interceptor)  
 [thymeleaf 文档](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#setting-attribute-values)  
 [mybatis](http://mybatis.org/generator/quickstart.html)  
-[markdown编辑器](https://pandao.github.io/editor.md/)
+[markdown编辑器](https://pandao.github.io/editor.md/)  
+[Markdown 插件](http://editor.md.ipandao.com/)   
+[UFfile SDK](https://github.com/ucloud/ufile-sdk-java)  
 等待  
 
 ## 工具
