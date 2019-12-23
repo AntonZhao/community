@@ -2,6 +2,7 @@ package com.example.community.provider;
 
 import com.alibaba.fastjson.JSON;
 import com.example.community.dto.AccessTokenDTO;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.springframework.stereotype.Component;
 import com.example.community.dto.GithubUser;
@@ -9,6 +10,7 @@ import com.example.community.dto.GithubUser;
 import java.io.IOException;
 
 @Component
+@Slf4j
 public class GithubProvider {
     public String getAccessToken(AccessTokenDTO accessTokenDTO) {
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
@@ -30,6 +32,7 @@ public class GithubProvider {
             return token;
         } catch (Exception e) {
             e.printStackTrace();
+            log.error("getAccessToken error,{}", accessTokenDTO, e);
         }
 
         return null;
@@ -48,6 +51,8 @@ public class GithubProvider {
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
             return githubUser;
         } catch (IOException e) {
+        } catch (Exception e) {
+            log.error("getUser error,{}", accessToken, e);
         }
 
         return null;

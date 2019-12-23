@@ -2,6 +2,7 @@ package com.example.community.controller;
 
 import com.example.community.dto.FileDTO;
 import com.example.community.provider.UCloudProvider;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Controller
+@Slf4j
 public class FileController {
 
     @Autowired
@@ -30,14 +32,11 @@ public class FileController {
             fileDTO.setUrl(fileName);
             return fileDTO;
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("upload error", e);
+            FileDTO fileDTO = new FileDTO();
+            fileDTO.setSuccess(0);
+            fileDTO.setMessage("上传失败");
+            return fileDTO;
         }
-
-        FileDTO fileDTO = new FileDTO();
-        fileDTO.setSuccess(1);
-        fileDTO.setMessage("这里输入描述信息");
-        fileDTO.setUrl("/img/mmd.jpg");
-        return fileDTO;
-
     }
 }

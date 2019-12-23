@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.community.Exception.CustomizeErrorCode;
 import com.example.community.Exception.CustomizeException;
 import com.example.community.dto.ResultDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @ControllerAdvice
+@Slf4j
 public class CustomizeExceptionHandler {
     @ExceptionHandler(Exception.class)
     ModelAndView handle(Throwable ex, Model model,
@@ -29,6 +31,7 @@ public class CustomizeExceptionHandler {
             if (ex instanceof CustomizeException) {
                 resultDTO = ResultDTO.errorOf((CustomizeException) ex);
             }else {
+                log.error("handle error", ex);
                 resultDTO = ResultDTO.errorOf(CustomizeErrorCode.SYS_ERROR);
             }
 
@@ -49,6 +52,7 @@ public class CustomizeExceptionHandler {
             if (ex instanceof CustomizeException) {
                 model.addAttribute("message", ex.getMessage());
             }else {
+                log.error("handle error", ex);
                 model.addAttribute("message", CustomizeErrorCode.SYS_ERROR.getMessage());
             }
             return new ModelAndView("error");
