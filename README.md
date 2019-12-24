@@ -43,81 +43,74 @@
 
 ## 脚本
 ```sql
-create table USER
+create table user
 (
-	ID INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_D9039AC6_F2AE_40AE_833A_60ABBF71CB4A" auto_increment,
-	ACCOUNT_ID VARCHAR(100),
-	NAME VARCHAR(50),
-	TOKEN CHAR(50),
-	GMT_CREATE BIGINT,
-	GMT_MODIFIED BIGINT,
-	BIO VARCHAR(256),
-	AVATAR_URL VARCHAR(100),
-	constraint USER_PK
-		primary key (ID)
+	id bigint auto_increment,
+	account_id varchar(100),
+	name varchar(50),
+	token char(50),
+	gmt_create bigint,
+	gmt_modified bigint,
+	bio varchar(256),
+	avatar_url varchar(100),
+	constraint user_pk
+	primary key (id)
 );
 
-
-create table QUESTION
+create table question
 (
-	ID INTEGER default NEXT VALUE FOR "PUBLIC"."SYSTEM_SEQUENCE_0F34DFC7_AE40_4073_9EC6_B7BB0A362EC5" auto_increment
-		primary key,
-	TITLE VARCHAR(50),
-	DESCRIPTION CLOB,
-	GMT_CREATE BIGINT,
-	GMT_MODIFIED BIGINT,
-	CREATOR INTEGER,
-	COMMENT_COUNT INTEGER default 0,
-	VIEW_COUNT INTEGER default 0,
-	LIKE_COUNT INTEGER default 0,
-	TAG VARCHAR(256)
+	id bigint auto_increment
+	primary key,
+	title varchar(50),
+	description text,
+	gmt_create bigint,
+	gmt_modified bigint,
+	creator bigint,
+	comment_count integer default 0,
+	view_count integer default 0,
+	like_count integer default 0,
+	tag varchar(256)
 );
 
-create table COMMENT
+create table notification
 (
-	ID BIGINT auto_increment,
-	PARENT_ID BIGINT not null,
-	TYPE INTEGER not null,
-	COMMENTATOR INTEGER not null,
-	GMT_CREATE BIGINT not null,
-	GMT_MODIFIED BIGINT not null,
-	LIKE_COUNT BIGINT default 0,
-	CONTENT CLOB not null,
-	constraint COMMENT_PK
-		primary key (ID)
+	id bigint  auto_increment,
+	notifier bigint not null,
+	receicer bigint not null,
+	outerid bigint not null,
+	type integer not null,
+	gmt_create bigint not null,
+	status integer default 0 not null,
+	notifier_name varchar(100),
+	outer_title varchar(256),
+	constraint notification_pk
+	primary key (id)
 );
 
-comment on column COMMENT.PARENT_ID is '父类ID';
-
-comment on column COMMENT.TYPE is '父类类型';
-
-comment on column COMMENT.COMMENTATOR is '评论人ID';
-
-comment on column COMMENT.GMT_CREATE is '创建时间';
-
-comment on column COMMENT.GMT_MODIFIED is '更新时间';
-
-comment on column COMMENT.LIKE_COUNT is '点赞数';
-
-
-create table NOTIFICATION
+create table comment
 (
-	ID BIGINT  auto_increment,
-	NOTIFIER BIGINT not null,
-	RECEICER BIGINT not null,
-	OUTERID BIGINT not null,
-	TYPE INTEGER not null,
-	GMT_CREATE BIGINT not null,
-	STATUS INTEGER default 0 not null,
-	constraint NOTIFICATION_PK
-		primary key (ID)
+	id bigint  auto_increment,
+	parent_id bigint not null,
+	type integer not null,
+	commentator bigint not null,
+	gmt_create bigint not null,
+	gmt_modified bigint not null,
+	like_count bigint default 0,
+	content varchar(1024) not null,
+	comment_count integer default 0 not null,
+	constraint comment_pk
+	primary key (id)
 );
 
+comment on column comment.parent_id is '父类id';
 
+comment on column comment.type is '父类类型';
 
+comment on column comment.gmt_create is '创建时间';
 
+comment on column comment.gmt_modified is '更新时间';
 
-
+comment on column comment.like_count is '点赞数';
 ```
 
 ```sql
@@ -196,3 +189,6 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 - command+option+v 抽取变量
 - command+option+p 抽取参数
 - command+option+f 抽取方法
+
+#### 21. mysql配置文件 my.cnf
+- 添加的属性不能放在最后面，不然不管用。。
