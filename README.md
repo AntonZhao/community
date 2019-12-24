@@ -1,6 +1,21 @@
-## 使用 spring boot 构建一个小家社区
+## 使用 spring boot 构建一个小家社区  
 
-## 资料
+## 依赖
+- Git 把代码拉下来
+- JDK 编译
+- Maven 构建项目
+- MySQL 生产环境的数据库  
+## 部署
+- yum update: 更新源
+- yum install git
+- yum install maven 顺便把JDK也装了
+- mvn -v 查看maven的版本
+- mvn clean compile package
+- cp  src/main/resources/application.properties  src/main/resources/application-production.properties
+- mvn package
+- java -jar -Dspring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar 启动项目
+- 访问项目，阿里云服务器需要配置80端口的安全组规则
+## 资料  
 [Spring 文档](https://spring.io/guides)  
 [Spring web文档](https://spring.io/guides/gs/serving-web-content/)  
 [es社区](https://elasticsearch.cn/explore)  
