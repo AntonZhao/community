@@ -192,3 +192,6 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 
 #### 21. mysql配置文件 my.cnf
 - 添加的属性不能放在最后面，不然不管用。。
+- 修改字符编码 https://www.jianshu.com/p/155c332340db
+- 一定要先修改字符集再去创建表
+- https://docs.lvrui.io/2016/08/21/%E4%BF%AE%E6%94%B9MySQL%E7%9A%84%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%BAutf8mb4/
