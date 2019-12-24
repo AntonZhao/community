@@ -15,6 +15,8 @@
 - mvn package
 - java -jar -Dspring.profiles.active=production target/community-0.0.1-SNAPSHOT.jar 启动项目
 - 访问项目，阿里云服务器需要配置80端口的安全组规则
+- ps -aux | grep java  检查进程
+- git pull 拉代码
 ## 资料  
 [Spring 文档](https://spring.io/guides)  
 [Spring web文档](https://spring.io/guides/gs/serving-web-content/)  
