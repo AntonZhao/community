@@ -49,8 +49,9 @@ public class AuthorizeController {
         accessTokenDTO.setClient_secret(clientSecret);
 
         String accessToken = githubProvider.getAccessToken(accessTokenDTO);
+        System.out.println("1");
         GithubUser githubUser = githubProvider.getUser(accessToken);
-
+        System.out.println("2");
         if (githubUser != null && githubUser.getId() != null) {
             User user = new User();
             String token = UUID.randomUUID().toString();
@@ -59,10 +60,10 @@ public class AuthorizeController {
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
             user.setAvatarUrl(githubUser.getAvatarUrl());
-
+            System.out.println("3");
             userService.createOrUpdate(user);
             response.addCookie(new Cookie("token", token));
-
+            System.out.println("4");
             return "redirect:/";
         } else {
             log.error("callback get github error,{}", githubUser);
