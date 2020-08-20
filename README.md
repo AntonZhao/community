@@ -128,10 +128,10 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 #### 1. 如何启动 spring boot 项目
 - 在ide里直接执行main方法
 - 打成jar包作为服务
-- 用 maven 启动 ？？？ 还不太懂 
+- 用 maven 启动
 
 #### 2. IOC AOP
-- 懂了再来写
+- Spring大法好
 
 #### 3. @component
 - 会把对象自动实例化放在一个池子里，方便使用
@@ -191,7 +191,16 @@ mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 - command+option+f 抽取方法
 
 #### 21. mysql配置文件 my.cnf
+- 行云流水的mysql安装指南：https://blog.csdn.net/a774630093/article/details/79270080
 - 添加的属性不能放在最后面，不然不管用。。
 - 修改字符编码 https://www.jianshu.com/p/155c332340db
 - 一定要先修改字符集再去创建表
 - https://docs.lvrui.io/2016/08/21/%E4%BF%AE%E6%94%B9MySQL%E7%9A%84%E5%AD%97%E7%AC%A6%E9%9B%86%E4%B8%BAutf8mb4/
+
+#### 22. yum换源
+- https://blog.csdn.net/qq_35530330/article/details/96363034
+
+#### 23. 为什么使用定时器
+- 每次都查影响性能
+- 作为一种异步的离线任务，api的形式
+- 昨天的数据
